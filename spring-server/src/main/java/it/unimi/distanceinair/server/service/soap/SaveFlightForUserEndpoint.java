@@ -36,7 +36,7 @@ public class SaveFlightForUserEndpoint {
     @ResponsePayload
     public SaveFlightForUserResponse saveFlightForUser(MessageContext messageContext) throws Exception {//@RequestPayload GetDistanceByFlightCodeRequest request) throws Exception {
 
-        log.debug("New message arrived");
+        log.info("New message arrived");
         SoapMessage message = (SoapMessage) messageContext.getRequest();
 
         SoapBody soapBody = message.getSoapBody();

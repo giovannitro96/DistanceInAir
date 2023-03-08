@@ -1,15 +1,11 @@
 package it.unimi.distanceinair.server.service.soap;
 
-import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.gson.io.GsonDeserializer;
 import it.unimi.distanceinair.server.service.endpointservices.FlightsService;
 import it.unimi.distanceinair.server.util.TokenUtil;
 import it.unimi.distanceinair.server.xml.domain.GetAllSavedFlightsByUsernameRequest;
 import it.unimi.distanceinair.server.xml.domain.GetAllSavedFlightsByUsernameResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -23,12 +19,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Optional;
 
 @Endpoint
 @Slf4j
@@ -46,7 +36,7 @@ public class GetAllSavedFlightsByUsernameEndpoint {
     @SoapAction(NAMESPACE_URI + "getAllFlights")
     @ResponsePayload
     public GetAllSavedFlightsByUsernameResponse getAllFlights(MessageContext messageContext) throws Exception {//@RequestPayload GetDistanceByFlightCodeRequest request) throws Exception {
-        log.debug("New message arrived");
+        log.info("New message arrived");
         SoapMessage message = (SoapMessage) messageContext.getRequest();
 
         SoapBody soapBody = message.getSoapBody();

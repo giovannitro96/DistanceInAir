@@ -8,13 +8,9 @@
 
 package it.unimi.distanceinair.server.xml.domain;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -93,8 +89,8 @@ public class GetDistanceByFlightCodeResponse {
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link DistanceInAir }
-     * 
-     * 
+     *
+     *
      */
     public List<DistanceInAir> getData() {
         if (data == null) {
@@ -103,4 +99,7 @@ public class GetDistanceByFlightCodeResponse {
         return this.data;
     }
 
+    public void setData(List<DistanceInAir> data) {
+        this.data = data;
+    }
 }

@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for DistanceInAir complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="DistanceInAir">
  *   &lt;complexContent>
@@ -37,19 +37,19 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DistanceInAir", propOrder = {
-    "arrival",
-    "airline",
-    "airport",
-    "codeshared",
-    "departure",
-    "flight",
-    "status",
-    "type"
+        "arrival",
+        "airline",
+        "airport",
+        "codeshared",
+        "departure",
+        "flight",
+        "status",
+        "type"
 })
 public class DistanceInAir {
 
@@ -58,7 +58,7 @@ public class DistanceInAir {
     @XmlElement(required = true)
     protected Airline airline;
     protected Airport airport;
-    protected String codeshared;
+    protected DistanceInAir codeshared;
     protected Departure departure;
     protected Flight flight;
     @XmlElement(required = true)
@@ -68,11 +68,11 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the arrival property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Arrival }
-     *     
+     *
      */
     public Arrival getArrival() {
         return arrival;
@@ -80,11 +80,11 @@ public class DistanceInAir {
 
     /**
      * Sets the value of the arrival property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Arrival }
-     *     
+     *
      */
     public void setArrival(Arrival value) {
         this.arrival = value;
@@ -92,11 +92,11 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the airline property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Airline }
-     *     
+     *
      */
     public Airline getAirline() {
         return airline;
@@ -104,11 +104,11 @@ public class DistanceInAir {
 
     /**
      * Sets the value of the airline property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Airline }
-     *     
+     *
      */
     public void setAirline(Airline value) {
         this.airline = value;
@@ -116,11 +116,11 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the airport property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Airport }
-     *     
+     *
      */
     public Airport getAirport() {
         return airport;
@@ -128,11 +128,11 @@ public class DistanceInAir {
 
     /**
      * Sets the value of the airport property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Airport }
-     *     
+     *
      */
     public void setAirport(Airport value) {
         this.airport = value;
@@ -140,35 +140,33 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the codeshared property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
-    public String getCodeshared() {
+    public DistanceInAir getCodeshared() {
         return codeshared;
     }
 
     /**
      * Sets the value of the codeshared property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link DistanceInAir }
+     *
      */
-    public void setCodeshared(String value) {
+    public void setCodeshared(DistanceInAir value) {
         this.codeshared = value;
     }
 
     /**
      * Gets the value of the departure property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Departure }
-     *     
+     *
      */
     public Departure getDeparture() {
         return departure;
@@ -176,11 +174,11 @@ public class DistanceInAir {
 
     /**
      * Sets the value of the departure property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Departure }
-     *     
+     *
      */
     public void setDeparture(Departure value) {
         this.departure = value;
@@ -188,11 +186,11 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the flight property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Flight }
-     *     
+     *
      */
     public Flight getFlight() {
         return flight;
@@ -200,11 +198,11 @@ public class DistanceInAir {
 
     /**
      * Sets the value of the flight property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Flight }
-     *     
+     *
      */
     public void setFlight(Flight value) {
         this.flight = value;
@@ -212,11 +210,11 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the status property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getStatus() {
         return status;
@@ -224,11 +222,11 @@ public class DistanceInAir {
 
     /**
      * Sets the value of the status property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setStatus(String value) {
         this.status = value;
@@ -236,11 +234,11 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the type property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getType() {
         return type;
@@ -248,11 +246,11 @@ public class DistanceInAir {
 
     /**
      * Sets the value of the type property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setType(String value) {
         this.type = value;

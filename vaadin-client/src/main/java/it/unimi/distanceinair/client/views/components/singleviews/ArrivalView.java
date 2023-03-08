@@ -4,29 +4,23 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.spring.annotation.SpringComponent;
-import com.vaadin.flow.spring.annotation.UIScope;
 import it.unimi.distanceinair.client.domain.model.ArrivalAirportModel;
-import it.unimi.distanceinair.client.domain.model.DepartureAirportModel;
 import it.unimi.distanceinair.client.domain.xml.Airport;
 import it.unimi.distanceinair.client.domain.xml.Arrival;
 import it.unimi.distanceinair.client.domain.xml.DistanceInAir;
 import it.unimi.distanceinair.client.domain.xml.Flight;
 import it.unimi.distanceinair.client.service.ServerApis;
 import it.unimi.distanceinair.client.util.ViewsUtils;
-import it.unimi.distanceinair.client.views.components.homepage.HomepageView;
 import it.unimi.distanceinair.client.views.components.utilities.HorizontallyAlignedView;
 import it.unimi.distanceinair.client.views.components.utilities.NothingFound;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -63,7 +57,7 @@ public class ArrivalView extends VerticalLayout {
             }
         });
         arrivalAirportModelSave = arrivalAirport;
-        Label typeLabel;
+        H2 typeLabel;
         List<Component> components = new ArrayList<>();
         if(!isSaved) {
             components.add(star);
@@ -71,7 +65,7 @@ public class ArrivalView extends VerticalLayout {
         Airport airport = arrivalAirport.getAirport();
         Arrival arrival = arrivalAirport.getArrival();
 
-        typeLabel = new Label("Arrival");
+        typeLabel = new H2("Arrival");
 
         Button close = new Button();
 

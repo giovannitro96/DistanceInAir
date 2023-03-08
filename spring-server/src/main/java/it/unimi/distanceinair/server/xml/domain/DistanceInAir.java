@@ -58,7 +58,7 @@ public class DistanceInAir {
     @XmlElement(required = true)
     protected Airline airline;
     protected Airport airport;
-    protected String codeshared;
+    protected DistanceInAir codeshared;
     protected Departure departure;
     protected Flight flight;
     @XmlElement(required = true)
@@ -140,25 +140,23 @@ public class DistanceInAir {
 
     /**
      * Gets the value of the codeshared property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
-    public String getCodeshared() {
+    public DistanceInAir getCodeshared() {
         return codeshared;
     }
 
     /**
      * Sets the value of the codeshared property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link DistanceInAir }
+     *
      */
-    public void setCodeshared(String value) {
+    public void setCodeshared(DistanceInAir value) {
         this.codeshared = value;
     }
 

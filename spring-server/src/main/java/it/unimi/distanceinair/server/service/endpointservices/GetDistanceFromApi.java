@@ -30,7 +30,7 @@ public class GetDistanceFromApi {
     GetAirportService getAirportService;
 
     public GetDistanceByFlightCodeResponse getFromApi(GetDistanceByFlightCodeRequest getDistanceByFlightCode) throws JsonProcessingException, FlightNotFoundException {
-        log.debug("Calling url for retrieving flight with code: {}, of type :{}", getDistanceByFlightCode.getFlightCode(), getDistanceByFlightCode.getType());
+        log.info("Calling url for retrieving flight with code: {}, of type :{}", getDistanceByFlightCode.getFlightCode(), getDistanceByFlightCode.getType());
         RestTemplate restTemplate = new RestTemplate();
         URI targetUrl = UriComponentsBuilder.fromUriString(BASE_URL)  // Build the base link
                 .queryParam("access_key", appProperties.getAccessToken())
@@ -44,6 +44,7 @@ public class GetDistanceFromApi {
             GetDistanceByFlightCodeResponse response = new ObjectMapper().readValue(result.getBody(), GetDistanceByFlightCodeResponse.class);
             String iataCode = getDistanceByFlightCode.getType().equals("arrival") ? response.getData().get(0).getArrival().getIataCode() : response.getData().get(0).getDeparture().getIataCode();
             response.getData().get(0).setAirport(getAirportService.getAirportByIataCode(iataCode));
+            log.info("Response returned from api: {}", response.getData());
             return response;
         } catch (
                 MismatchedInputException e) {

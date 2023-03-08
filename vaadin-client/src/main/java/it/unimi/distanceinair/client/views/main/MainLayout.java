@@ -6,12 +6,14 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
-import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -19,7 +21,6 @@ import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import it.unimi.distanceinair.client.service.ServerApis;
-import it.unimi.distanceinair.client.util.ViewsUtils;
 import it.unimi.distanceinair.client.views.components.appnav.AppNav;
 import it.unimi.distanceinair.client.views.components.appnav.AppNavItem;
 import it.unimi.distanceinair.client.views.components.homepage.HomepageView;
@@ -30,8 +31,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
-
-import java.security.SecureRandom;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -54,14 +53,14 @@ public class MainLayout extends AppLayout {
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
-
         viewTitle = new H2();
-        viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.AUTO);
-        viewTitle.setWidthFull();
-
-        HorizontalLayout hl = new HorizontalLayout();
-        hl.add(toggle, viewTitle);
-        addToNavbar(true, toggle, viewTitle);
+        viewTitle.addClassNames(LumoUtility.FontSize.XXLARGE, LumoUtility.Margin.AUTO, LumoUtility.AlignContent.CENTER);
+        VerticalLayout vl = new VerticalLayout();
+        vl.add(viewTitle);
+        vl.getStyle().set("position", "absolute");
+        vl.getStyle().set("z-index", "-1");
+        vl.setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
+        addToNavbar(true, toggle, vl);
     }
 
     private void addDrawerContent() {
@@ -69,16 +68,17 @@ public class MainLayout extends AppLayout {
                 () -> getClass().getResourceAsStream("/airplane-icon.png"));
         Image img = new Image(imageResource, "");
         H2 appName = new H2("Distance In Air");
-        appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
+        appName.addClassNames(LumoUtility.FontSize.XXLARGE, LumoUtility.Margin.NONE);
         VerticalLayout vl = new VerticalLayout(img);
         vl.add(appName);
+        vl.add(createUser());
         vl.getStyle().set("overflow-x", "hidden");
         vl.setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
         Header header = new Header();
         header.add(vl);
         Scroller scroller = new Scroller(createNavigation());
-
-        addToDrawer(header, scroller, createFooter());
+        vl.add(scroller);
+        addToDrawer(header);
     }
 
     private AppNav createNavigation() {
@@ -97,7 +97,7 @@ public class MainLayout extends AppLayout {
         return nav;
     }
 
-    private VerticalLayout createFooter() {
+    private VerticalLayout createUser() {
 
         VerticalLayout layout = new VerticalLayout();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -120,17 +120,14 @@ public class MainLayout extends AppLayout {
             div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
             userName.add(div);
             userName.getSubMenu().addItem("Sign out", e -> UI.getCurrent().getPage().setLocation("/logout"));
-
             layout.add(userMenu);
         } else {
             Button login = new Button("Sign in",
-                    event -> UI.getCurrent().getPage().setLocation("/homepage"));
+                    event -> UI.getCurrent().getPage().setLocation("/search"));
             layout.add(login);
         }
-        layout.getStyle().set("position", "fixed");
-        layout.getStyle().set("bottom","5%");
-
-       layout.setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
+        layout.setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
+        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
         return layout;
     }
 

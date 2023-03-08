@@ -16,7 +16,6 @@ import com.vaadin.flow.theme.lumo.Lumo;
 import it.unimi.distanceinair.client.domain.exception.WrongPasswordException;
 import it.unimi.distanceinair.client.domain.model.ArrivalAirportModel;
 import it.unimi.distanceinair.client.domain.model.DepartureAirportModel;
-import it.unimi.distanceinair.client.domain.xml.DistanceInAir;
 import it.unimi.distanceinair.client.service.ServerApis;
 import it.unimi.distanceinair.client.util.ViewsUtils;
 import it.unimi.distanceinair.client.views.components.singleviews.ArrivalView;
@@ -29,10 +28,9 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 
 import javax.annotation.security.RolesAllowed;
 import java.io.IOException;
-import java.util.UUID;
 
-@PageTitle("Flight search")
-@Route(value = "homepage", layout = MainLayout.class)
+@PageTitle("Search flights")
+@Route(value = "search", layout = MainLayout.class)
 @RolesAllowed("USER")
 public class HomepageView extends VerticalLayout {
 
@@ -149,9 +147,5 @@ public class HomepageView extends VerticalLayout {
         horizontalLayout.setVerticalComponentAlignment(Alignment.CENTER, flightCode, select);
         setHorizontalComponentAlignment(Alignment.CENTER, getData, horizontalLayout, yourResults, nothingFound, flexLayout);
         add(horizontalLayout, getData, yourResults, nothingFound, flexLayout);
-    }
-
-    public UUID saveInStar(DistanceInAir distanceInAir) {
-            return UUID.fromString(serverApis.saveFlightIntoPref(distanceInAir, ViewsUtils.getToken()));
     }
 }

@@ -9,6 +9,7 @@ public class HorizontallyAlignedView extends HorizontalLayout {
         Label label1 = new Label(name+":");
         label1.getStyle().set("font-weight", "bold");
         Label label2 = new Label(value);
+        setAlignItems(Alignment.CENTER);
         add(label1, label2);
     }
 }

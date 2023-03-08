@@ -1,7 +1,7 @@
 package it.unimi.distanceinair.client.views.components.saved;
 
 import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -13,11 +13,9 @@ import it.unimi.distanceinair.client.service.ServerApis;
 import it.unimi.distanceinair.client.util.ViewsUtils;
 import it.unimi.distanceinair.client.views.components.saved.internal.SavedFlightsComponent;
 import it.unimi.distanceinair.client.views.components.utilities.NothingFound;
-import it.unimi.distanceinair.client.views.components.utilities.YourResults;
 import it.unimi.distanceinair.client.views.main.MainLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +25,18 @@ import java.util.List;
 @RolesAllowed("USER")
 @SpringComponent
 @UIScope
-public class SavedFlights extends HorizontalLayout {
+public class SavedFlights extends VerticalLayout {
 
     @Autowired
     ServerApis flightApi;
+    HorizontalLayout container;
 
     SavedFlights() {
-        setJustifyContentMode(JustifyContentMode.CENTER);
-        getStyle().set("flex-wrap", "wrap");
-        getStyle().set("display","flex");
-        setSpacing(true);
+        H2 h2 = new H2("Here you can find your saved flights, " +
+                "you can review and remove them. Have a good flight!");
+        add(h2);
+        container = new HorizontalLayout();
+        container.setSizeFull();
     }
 
 
@@ -51,9 +51,10 @@ public class SavedFlights extends HorizontalLayout {
             add(nf);
         } else {
             SavedFlightsComponent savedFlightsComponent = new SavedFlightsComponent(list, flightApi);
-            removeAll();
-            add(savedFlightsComponent);
+            container.removeAll();
+            savedFlightsComponent.setDefaultHorizontalComponentAlignment(Alignment.CENTER);
+            container.add(savedFlightsComponent);
+            add(container);
         }
     }
-
 }

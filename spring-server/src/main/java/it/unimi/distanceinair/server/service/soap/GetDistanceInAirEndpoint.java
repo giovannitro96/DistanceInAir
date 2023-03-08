@@ -43,7 +43,7 @@ public class GetDistanceInAirEndpoint {
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
         GetDistanceByFlightCodeRequest request = (GetDistanceByFlightCodeRequest) unmarshaller.unmarshal(bodyDomSource);
-        log.debug("New request arrived: {}", request);
+        log.info("New request arrived: {}", request);
         return getDistanceFromApi.getFromApi(request);
     }
 

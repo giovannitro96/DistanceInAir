@@ -71,7 +71,7 @@
              <s:element minOccurs="1" maxOccurs="1"  name="arrival" type="tns:Arrival" />
             <s:element minOccurs="1" maxOccurs="1" name="airline" type="tns:Airline" />
              <s:element minOccurs="0" maxOccurs="1" name="airport" type="tns:Airport" />
-            <s:element minOccurs="0" name="codeshared" type="s:string" />
+            <s:element minOccurs="0" name="codeshared" type="tns:DistanceInAir" />
             <s:element minOccurs="0" name="departure" type="tns:Departure" />
             <s:element minOccurs="0" name="flight" type="tns:Flight" />
             <s:element name="status" type="s:string" />

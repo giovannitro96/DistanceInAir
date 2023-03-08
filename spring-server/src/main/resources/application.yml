@@ -13,18 +13,18 @@ spring:
       ddl-auto: update
 logging:
   level:
-    root: info
+    root: DEBUG
     org:
       springframework:
         ws:
           client:
             MessageTracing:
               sent: INFO
-              received: TRACE
+              received: INFO
           server:
             MessageTracing:
               sent: INFO
-              received: TRACE
+              received: INFO
 application:
   access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYTRjZjZjODU3Zjc3MWFjMmQzZDQ0YmQ0ZjE2MzdjNGZkZWY3ODAwMzdiYzgxNzZmNTMzN2YxNmViOTAxODEwMGNhMzNjYTkyODcyZjhiZDIiLCJpYXQiOjE2Nzc0MzA3MjIsIm5iZiI6MTY3NzQzMDcyMiwiZXhwIjoxNzA4OTY2NzIyLCJzdWIiOiIxODA0NCIsInNjb3BlcyI6W119.h5Ue-_fAusR3PBwBJJmUy0rZNfMuJ42yrY5ZzkQUAzdjnNEkD-rw4VK5LzSgHGmE_d8p-VkRMuGfcA_CURUEmQ
   client_pwd: u9u6GT&j!10^

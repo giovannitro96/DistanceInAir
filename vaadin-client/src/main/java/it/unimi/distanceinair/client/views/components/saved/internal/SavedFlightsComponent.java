@@ -20,13 +20,14 @@ public class SavedFlightsComponent extends VerticalLayout {
     public SavedFlightsComponent(List<FlightDto> flightsList, ServerApis serverApis){
 
         flexLayout = new HorizontalLayout();
-        flexLayout.getStyle().set("flex-wrap","wrap");
-        flexLayout.getStyle().set("display","flex");
+        flexLayout.getStyle().set("flex-wrap", "wrap");
+        flexLayout.getStyle().set("display", "flex");
         flexLayout.setSpacing(true);
-
+        flexLayout.setJustifyContentMode(JustifyContentMode.CENTER);
+        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
 
         flightsList.forEach(it -> {
-            if( it.getType().equals("arrival")) {
+            if (it.getType().equals("arrival")) {
                 Arrival arrival = new Arrival();
                 arrival.setBaggage(it.getBaggage());
                 arrival.setActualRunway(it.getActualRunway());
