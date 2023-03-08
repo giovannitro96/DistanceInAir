@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://localhost:8080/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.unimi.it/distanceinair"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+>
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get your flight infos</wsdl:documentation>
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://localhost:8080/">
+            <s:include schemaLocation="DistanceInAir.xsd"/>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="GetDistanceByFlightCodeSoapIn">
+        <wsdl:part name="parameters" element="tns:GetDistanceByFlightCode"/>
+    </wsdl:message>
+    <wsdl:message name="GetDistanceByFlightCodeSoapOut">
+        <wsdl:part name="parameters" element="tns:GetDistanceByFlightCodeResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="DistanceInAirSoap">
+        <wsdl:operation name="GetDistanceByFlightCode">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get flight informations by flight code
+            </wsdl:documentation>
+            <wsdl:input message="tns:GetDistanceByFlightCodeSoapIn"/>
+            <wsdl:output message="tns:GetDistanceByFlightCodeSoapOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="DistanceInAirSoap" type="tns:DistanceInAirSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetDistanceByFlightCode">
+            <soap:operation soapAction="http://localhost:8080/GetDistanceByFlightCode" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:binding name="DistanceInAirSoap" type="tns:DistanceInAirSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetAllSavedFlightsByUsername">
+            <soap:operation soapAction="http://localhost:8080/GetAllSavedFlightsByUsername" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:binding name="DistanceInAirSoap" type="tns:DistanceInAirSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="SaveFlightForUser">
+            <soap:operation soapAction="http://localhost:8080/SaveFlightForUser" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:binding name="DistanceInAirSoap" type="tns:DistanceInAirSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RemoveFlightForUser">
+            <soap:operation soapAction="http://localhost:8080/RemoveFlightForUser" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="DistanceInAir">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get flight informations by flight code
+        </wsdl:documentation>
+        <wsdl:port name="DistanceInAirSoap" binding="tns:DistanceInAirSoap">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

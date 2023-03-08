@@ -1,0 +1,36 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    username: keycloak
+    hikari:
+      connectionTimeout: '20000'
+      maximumPoolSize: '5'
+    url: jdbc:postgresql://postgres:5432/keycloak?currentSchema=flights
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        ws:
+          client:
+            MessageTracing:
+              sent: INFO
+              received: TRACE
+          server:
+            MessageTracing:
+              sent: INFO
+              received: TRACE
+application:
+  access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYTRjZjZjODU3Zjc3MWFjMmQzZDQ0YmQ0ZjE2MzdjNGZkZWY3ODAwMzdiYzgxNzZmNTMzN2YxNmViOTAxODEwMGNhMzNjYTkyODcyZjhiZDIiLCJpYXQiOjE2Nzc0MzA3MjIsIm5iZiI6MTY3NzQzMDcyMiwiZXhwIjoxNzA4OTY2NzIyLCJzdWIiOiIxODA0NCIsInNjb3BlcyI6W119.h5Ue-_fAusR3PBwBJJmUy0rZNfMuJ42yrY5ZzkQUAzdjnNEkD-rw4VK5LzSgHGmE_d8p-VkRMuGfcA_CURUEmQ
+  client_pwd: u9u6GT&j!10^
+  server_pwd: ART*18HKUhC1
+  server_keystore: classpath:server.jks
+  client_keystore: classpath:client.jks
+  server_alias: progetto-unimi
+  client_alias: studente-giovanni
+  keycloak-url: http://keycloak:8080/auth/realms/soasec-project

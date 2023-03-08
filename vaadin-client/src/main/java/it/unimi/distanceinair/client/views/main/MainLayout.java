@@ -1,0 +1,147 @@
+package it.unimi.distanceinair.client.views.main;
+
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.Scroller;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.auth.AccessAnnotationChecker;
+import com.vaadin.flow.theme.lumo.LumoUtility;
+import it.unimi.distanceinair.client.service.ServerApis;
+import it.unimi.distanceinair.client.util.ViewsUtils;
+import it.unimi.distanceinair.client.views.components.appnav.AppNav;
+import it.unimi.distanceinair.client.views.components.appnav.AppNavItem;
+import it.unimi.distanceinair.client.views.components.homepage.HomepageView;
+import it.unimi.distanceinair.client.views.components.index.IndexView;
+import it.unimi.distanceinair.client.views.components.saved.SavedFlights;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+
+import java.security.SecureRandom;
+
+/**
+ * The main view is a top-level placeholder for other views.
+ */
+public class MainLayout extends AppLayout {
+
+    @Autowired
+    ServerApis serverApis;
+    private final AccessAnnotationChecker accessChecker;
+    private H2 viewTitle;
+
+    public MainLayout(AccessAnnotationChecker accessChecker) {
+        this.accessChecker = accessChecker;
+
+        setPrimarySection(Section.DRAWER);
+        addDrawerContent();
+        addHeaderContent();
+    }
+
+    private void addHeaderContent() {
+        DrawerToggle toggle = new DrawerToggle();
+        toggle.getElement().setAttribute("aria-label", "Menu toggle");
+
+        viewTitle = new H2();
+        viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.AUTO);
+        viewTitle.setWidthFull();
+
+        HorizontalLayout hl = new HorizontalLayout();
+        hl.add(toggle, viewTitle);
+        addToNavbar(true, toggle, viewTitle);
+    }
+
+    private void addDrawerContent() {
+        StreamResource imageResource = new StreamResource("airplane-icon.png",
+                () -> getClass().getResourceAsStream("/airplane-icon.png"));
+        Image img = new Image(imageResource, "");
+        H2 appName = new H2("Distance In Air");
+        appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
+        VerticalLayout vl = new VerticalLayout(img);
+        vl.add(appName);
+        vl.getStyle().set("overflow-x", "hidden");
+        vl.setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
+        Header header = new Header();
+        header.add(vl);
+        Scroller scroller = new Scroller(createNavigation());
+
+        addToDrawer(header, scroller, createFooter());
+    }
+
+    private AppNav createNavigation() {
+        AppNav nav = new AppNav();
+
+        if (accessChecker.hasAccess(IndexView.class)) {
+            nav.addItem(new AppNavItem("Homepage", IndexView.class, new Icon(VaadinIcon.GLOBE)));
+        }
+        if (accessChecker.hasAccess(HomepageView.class)) {
+            nav.addItem(new AppNavItem("Search flights", HomepageView.class, new Icon(VaadinIcon.AIRPLANE)));
+        }
+        if(accessChecker.hasAccess(SavedFlights.class)) {
+            nav.addItem(new AppNavItem("Saved flights", SavedFlights.class, new Icon(VaadinIcon.DATABASE)));
+        }
+
+        return nav;
+    }
+
+    private VerticalLayout createFooter() {
+
+        VerticalLayout layout = new VerticalLayout();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof OAuth2AuthenticationToken token
+                && token.getPrincipal() instanceof DefaultOidcUser oidcUser) {
+            Avatar avatar = new Avatar(authentication.getName());
+            avatar.setThemeName("xsmall");
+            avatar.getElement().setAttribute("tabindex", "-1");
+
+            MenuBar userMenu = new MenuBar();
+            userMenu.setThemeName("tertiary-inline contrast");
+
+            MenuItem userName = userMenu.addItem("");
+            Div div = new Div();
+            div.add(avatar);
+            div.add(oidcUser.getFullName());
+            div.add(new Icon("lumo", "dropdown"));
+            div.getElement().getStyle().set("display", "flex");
+            div.getElement().getStyle().set("align-items", "center");
+            div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
+            userName.add(div);
+            userName.getSubMenu().addItem("Sign out", e -> UI.getCurrent().getPage().setLocation("/logout"));
+
+            layout.add(userMenu);
+        } else {
+            Button login = new Button("Sign in",
+                    event -> UI.getCurrent().getPage().setLocation("/homepage"));
+            layout.add(login);
+        }
+        layout.getStyle().set("position", "fixed");
+        layout.getStyle().set("bottom","5%");
+
+       layout.setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
+        return layout;
+    }
+
+    @Override
+    protected void afterNavigation() {
+        super.afterNavigation();
+        viewTitle.setText(getCurrentPageTitle());
+    }
+
+    private String getCurrentPageTitle() {
+        PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
+        return title == null ? "" : title.value();
+    }
+}

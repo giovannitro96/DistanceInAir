@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="b2c77b17-f28b-4e74-87dd-556f5f030aa9" activeEnvironment="Default" name="AirInSpace" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="c19fab5e-8266-4b29-a968-31577f44e70f" wsaVersion="NONE" name="GetDistanceInAirSoap11" type="wsdl" bindingName="{http://www.unimi.it/distanceinair/}GetDistanceInAirSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8082/ws/DistanceInAir.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8082/ws/DistanceInAir.wsdl"><con:part><con:url>http://localhost:8082/ws/DistanceInAir.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.unimi.it/distanceinair/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.unimi.it/distanceinair/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.unimi.it/distanceinair/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.unimi.it/distanceinair/" xmlns:s="http://www.w3.org/2001/XMLSchema">
+      <s:element name="GetDistanceByFlightCodeRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="1" name="FlightCode" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="type" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDistanceByFlightCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="success" type="s:string"/>
+            <s:element maxOccurs="unbounded" minOccurs="1" name="data" type="tns:DistanceInAir"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DistanceInAir">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="1" name="arrival" type="tns:Arrival"/>
+          <s:element maxOccurs="1" minOccurs="1" name="airline" type="tns:Airline"/>
+          <s:element minOccurs="0" name="codeshared" type="s:string"/>
+          <s:element minOccurs="0" name="departure" type="tns:Departure"/>
+          <s:element minOccurs="0" name="flight" type="tns:Flight"/>
+          <s:element name="status" type="s:string"/>
+          <s:element name="type" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Airline">
+        <s:sequence>
+          <s:element name="iataCode" type="s:string"/>
+          <s:element name="icaoCode" type="s:string"/>
+          <s:element name="name" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Arrival">
+        <s:sequence>
+          <s:element name="iataCode" type="s:string"/>
+          <s:element name="icaoCode" type="s:string"/>
+          <s:element name="scheduledTime" type="s:string"/>
+          <s:element minOccurs="0" name="estimatedTime" type="s:string"/>
+          <s:element minOccurs="0" name="gate" type="s:string"/>
+          <s:element minOccurs="0" name="terminal" type="s:string"/>
+          <s:element minOccurs="0" name="actualRunway" type="s:string"/>
+          <s:element minOccurs="0" name="actualTime" type="s:string"/>
+          <s:element minOccurs="0" name="baggage" type="s:string"/>
+          <s:element minOccurs="0" name="delay" type="s:string"/>
+          <s:element minOccurs="0" name="estimatedRunway" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Departure">
+        <s:sequence>
+          <s:element name="iataCode" type="s:string"/>
+          <s:element name="icaoCode" type="s:string"/>
+          <s:element name="scheduledTime" type="s:string"/>
+          <s:element minOccurs="0" name="estimatedTime" type="s:string"/>
+          <s:element minOccurs="0" name="gate" type="s:string"/>
+          <s:element minOccurs="0" name="terminal" type="s:string"/>
+          <s:element minOccurs="0" name="actualRunway" type="s:string"/>
+          <s:element minOccurs="0" name="actualTime" type="s:string"/>
+          <s:element minOccurs="0" name="baggage" type="s:string"/>
+          <s:element minOccurs="0" name="delay" type="s:string"/>
+          <s:element minOccurs="0" name="estimatedRunway" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="faultMessage">
+        <s:attribute name="type" type="s:string" use="required"/>
+      </s:complexType>
+      <s:complexType name="Flight">
+        <s:sequence>
+          <s:element name="iataNumber" type="s:string"/>
+          <s:element name="icaoNumber" type="s:string"/>
+          <s:element name="number" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDistanceByFlightCodeResponse">
+    <wsdl:part element="tns:GetDistanceByFlightCodeResponse" name="GetDistanceByFlightCodeResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDistanceByFlightCodeRequest">
+    <wsdl:part element="tns:GetDistanceByFlightCodeRequest" name="GetDistanceByFlightCodeRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GetDistanceInAir">
+    <wsdl:operation name="GetDistanceByFlightCode">
+      <wsdl:input message="tns:GetDistanceByFlightCodeRequest" name="GetDistanceByFlightCodeRequest"></wsdl:input>
+      <wsdl:output message="tns:GetDistanceByFlightCodeResponse" name="GetDistanceByFlightCodeResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetDistanceInAirSoap11" type="tns:GetDistanceInAir">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetDistanceByFlightCode">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetDistanceByFlightCodeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDistanceByFlightCodeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetDistanceInAirService">
+    <wsdl:port binding="tns:GetDistanceInAirSoap11" name="GetDistanceInAirSoap11">
+      <soap:address location="http://localhost:8082/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/ws</con:endpoint><con:endpoint>http://localhost:8082/ws</con:endpoint></con:endpoints><con:operation id="660c7432-bde8-45dd-ab0b-4b6a959ecd46" isOneWay="false" action="" name="GetDistanceByFlightCode" bindingOperationName="GetDistanceByFlightCode" type="Request-Response" outputName="GetDistanceByFlightCodeResponse" inputName="GetDistanceByFlightCodeRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a2d9bdc1-fddf-4978-93db-09a17e0b89db" name="Request 1" sslKeystore="server.jks" outgoingWss="Encryption"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="SOAPAction" value="http://www.unimi.it/distanceinair/getDistance" xmlns="http://eviware.com/soapui/config"/></con:setting><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@skip_soap_action">false</con:setting><con:setting id="WsdlSettings@enable-mtom">false</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dis="http://www.unimi.it/distanceinair/">
+<soapenv:Header/><soapenv:Body><dis:GetDistanceByFlightCodeRequest><dis:FlightCode>az1764</dis:FlightCode><dis:type>aa</dis:type>
+</dis:GetDistanceByFlightCodeRequest></soapenv:Body></soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>true</con:preemptive><con:authType>Preemptive</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.unimi.it/distanceinair/GetDistanceInAir/GetDistanceByFlightCodeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="f41189bf-1678-4fb3-8d7a-c999df06fc8e" name="Request 1" outgoingWss="Encryption" sslKeystore="server.jks"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="SOAPAction" value="http://www.unimi.it/distanceinair/getDistance" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/ws</con:endpoint><con:request><![CDATA[<SOAP-ENV:Envelope
+xmlns:ds="http://www.unimi.it/distanceinair/"
+xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:SOAP-ENV="http://www.unimi.it/distanceinair/"><SOAP-ENV:Header><wsse:Security
+xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+SOAP-ENV:mustUnderstand="1"><xenc:EncryptedKey
+xmlns:xenc="http://www.w3.org/2001/04/xmlenc#"
+Id="EK-3ca82007-5be1-441e-85e7-22e7cb04eea8"><xenc:EncryptionMethod
+Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"/><ds:KeyInfo
+xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><wsse:SecurityTokenReference><ds:X509Data><ds:X509IssuerSerial><ds:X509IssuerName>
+CN=ProgettoUnimi,OU=Unimi,O=Unimi,L=Palermo,ST=Sicilia,C=IT</ds:X509IssuerName><ds:X509SerialNumber>
+1670365583</ds:X509SerialNumber></ds:X509IssuerSerial></ds:X509Data></wsse:SecurityTokenReference></ds:KeyInfo><xenc:CipherData><xenc:CipherValue>
+[truncated]gHVWV9ltx4BqJ6Ig19IfU17JdZEQUuKMGRN2oi3OijidCFbDGo7Mv3UcJ75YIwl4PzHl69+k+vGwoK+bfC7CHWttFWerMuYumMJ14hm1sBIDEuxTAqnrIQspPPa+DON0FozXAaKR9DJAUtol+SzEQIFY4AQhVRi4Y6BHAjY05xkl1vtXeBOZcy2vycQ05YGYA2rQ3jWQ0NNGZc5vYPYJQkPJYyYiwzXZyM</xenc:CipherValue></xenc:CipherData><xenc:ReferenceList><xenc:DataReference
+URI="#ED-11b9976f-1055-4243-8e0b-6962e135feb5"/></xenc:ReferenceList></xenc:EncryptedKey><ds:Signature
+xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+Id="SIG-c3159487-f9b7-4270-8862-cd054df5b1e8"><ds:SignedInfo><ds:CanonicalizationMethod
+Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"><ec:InclusiveNamespaces
+xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"
+PrefixList="SOAP-ENV"/></ds:CanonicalizationMethod><ds:SignatureMethod
+Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference
+URI="#id-9fd80140-b0a0-4c93-98b0-ccb6fa1950f6"><ds:Transforms><ds:Transform
+Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transforms><ds:DigestMethod
+Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>
+NcwCKOiVxu36E0OUQww8wU8KMmU=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>
+iIzPSmjLFSSCTdhucN6ew0DZYT0MJdXKbEvJzEJ0jl6g5PdH8Zs3/7kBbZVIJyUf7orTywvT/S0CifEMxkzgz7fo4mF3MOSoggAc3K3NbXGdCDyLDGEmIIGaTTa1Nc5Lnv+pkrnuEmzBREqgOpAsMZr538BZrS+Jn/Du98B9tTh39SpsykSCdSQhFAq7lKUl+CBp5Iwk50bSr0XWyFjFBc2SBkMt/V49ZbaxWVIoSaKrk7QSp6/ZCZ1eWG/eKCpJHJN43VFannW8PVROQ8d9qE0D7ppjcVMvzo55WLrOh3xCF62+Ble6oHBarhDhck2LKJVR5DOo+khGoqEazzTjmg==</ds:SignatureValue><ds:KeyInfo
+Id="KI-efcfc46a-70d8-439d-ae0f-5430fd2ae613"><wsse:SecurityTokenReference
+wsu:Id="STR-d7a15c70-027f-4a98-aeeb-ce117ff31361"><ds:X509Data><ds:X509IssuerSerial><ds:X509IssuerName>
+CN=ProgettoUnimi,OU=Unimi,O=Unimi,L=Palermo,ST=Sicilia,C=IT</ds:X509IssuerName><ds:X509SerialNumber>
+1670365583</ds:X509SerialNumber></ds:X509IssuerSerial></ds:X509Data></wsse:SecurityTokenReference></ds:KeyInfo></ds:Signature></wsse:Security></SOAP-ENV:Header><SOAP-ENV:Body
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+wsu:Id="id-9fd80140-b0a0-4c93-98b0-ccb6fa1950f6"><xenc:EncryptedData
+xmlns:xenc="http://www.w3.org/2001/04/xmlenc#"
+Id="ED-11b9976f-1055-4243-8e0b-6962e135feb5"
+Type="http://www.w3.org/2001/04/xmlenc#Content"><xenc:EncryptionMethod
+Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/><ds:KeyInfo
+xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><wsse:SecurityTokenReference
+xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd"
+wsse11:TokenType="http://docs.oasis-open.org/wss/oasis-wss-soap-message-security-1.1#EncryptedKey"><wsse:Reference
+URI="#EK-3ca82007-5be1-441e-85e7-22e7cb04eea8"/></wsse:SecurityTokenReference></ds:KeyInfo><xenc:CipherData><xenc:CipherValue>
+wJBt4GleV0yDd7/wg1fqcgGi+irywZPGnvO4qEagvjuIHZpTqttZcyeY/93/5mL2Btq4T3l3TXMwWzG3KsrjQKqXL4f60XS5zHBX3uZhC4ccLjbN0Zg/l3l/gRAx5DbLhfQ7kBmU/xbUq6/mg7kV77ZCMo3AybDWxppgtlGEoexhjUJRdE/v5EehDfDWcjmfYNIgqW+Oh483y68+MZjUOKBGmxMDC1hmKK3rPFoNV3wEPjcIHDE/sX0roV/Op5jFexOstgq583r+sV+DLTGbzQ==</xenc:CipherValue></xenc:CipherData></xenc:EncryptedData></SOAP-ENV:Body></SOAP-ENV:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.unimi.it/distanceinair/GetDistanceInAir/GetDistanceByFlightCodeRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="badbaed2-3cc6-4136-9945-5a611da84c43" name="Request 1" outgoingWss="Encryption" sslKeystore="server.jks"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="SOAPAction" value="http://www.unimi.it/distanceinair/getDistance" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8082/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dis="http://www.unimi.it/distanceinair/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <dis:GetDistanceByFlightCodeRequest>
+         <dis:FlightCode>aasdasd</dis:FlightCode>
+         <dis:type>asdas</dis:type>
+      </dis:GetDistanceByFlightCodeRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.unimi.it/distanceinair/GetDistanceInAir/GetDistanceByFlightCodeRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="5d84ba17-d0ed-4b04-9b4e-30bfccee3f81" name="TestSuite 1"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="7464dbb3-68bf-4e5c-80e3-85c45b212a8d" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true"><con:settings/><con:testStep type="request" id="ffda9d89-29a1-4e0c-a592-f79674c4ee25" name="GetDistanceByFlightCode - Request 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>GetDistanceInAirSoap11</con:interface><con:operation>GetDistanceByFlightCode</con:operation><con:request name="GetDistanceByFlightCode - Request 1" outgoingWss="" incomingWss="" timeout="" sslKeystore="server.jks" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="ae7bed97-49e3-4f14-a2cc-1b334343fa96"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dis="http://www.unimi.it/distanceinair/">
+   <soapenv:Header/>
+
+   <soapenv:Body>
+      <dis:GetDistanceByFlightCodeRequest>
+         <dis:FlightCode>az1792</dis:FlightCode>
+         <dis:type>arrival</dis:type>
+      </dis:GetDistanceByFlightCodeRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="ff22d539-b953-4a3a-bd35-72ab8c519894" name="SOAP Response"/><con:credentials><con:username>admin</con:username><con:password>pwd123</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>false</con:preemptive><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.unimi.it/distanceinair/GetDistanceInAir/GetDistanceByFlightCodeRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer><con:crypto><con:source>/Users/giovannitroia/server.jks</con:source><con:password>changeit</con:password><con:type>KEYSTORE</con:type></con:crypto><con:outgoing mustUnderstand="false"><con:name>Encryption</con:name><con:entry type="Signature" username="progetto-unimi" password="changeit"><con:configuration><crypto>server.jks</crypto><keyIdentifierType>2</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>true</useSingleCert><prependSignature>true</prependSignature><digestAlgorithm/><customTokenValueType/><customTokenId/></con:configuration></con:entry><con:entry type="Encryption" username="progetto-unimi" password="changeit"><con:configuration><crypto>server.jks</crypto><keyIdentifierType>2</keyIdentifierType><symmetricEncAlgorithm/><encKeyTransport/><embeddedKeyName/><embeddedKeyPassword/><encryptionCanonicalization/><encryptSymmetricKey>true</encryptSymmetricKey></con:configuration></con:entry></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
