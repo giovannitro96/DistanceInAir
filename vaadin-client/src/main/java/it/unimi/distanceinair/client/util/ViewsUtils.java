@@ -47,9 +47,4 @@ public class ViewsUtils {
         return String.join("/", arrayList) + " " + dateArray[1];
     }
 
-    public static void saveLocalStorage(String code, Object object) {
-        Gson gson = new Gson();
-        UI.getCurrent().getPage().executeJs("localStorage.setItem($0, $1)", code, gson.toJson(object));
-    }
-
 }

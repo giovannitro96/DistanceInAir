@@ -17,8 +17,12 @@ public class IndexView extends VerticalLayout {
         setPadding(true);
 
         add(new H1("Welcome to Distance in Air!"));
-        add(new H3("Here you can search for international flights, you must first register to use this service."));
-        add(new H3("Don't try to inspect outgoing and ingoing requests, they are encrypted!"));
+        VerticalLayout vl = new VerticalLayout();
+        vl.add(new H3("Here you can search for international flights, you must first register to use this service." +
+                "Don't try to inspect outgoing and ingoing requests, they are encrypted!"));
+        vl.setWidth("80%");
+        add(vl);
+        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
     }
 
 }

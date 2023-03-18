@@ -51,6 +51,7 @@ public class DepartureView extends VerticalLayout {
                 notification.setText("Flight with code " + departureAirportModelSave.getCode() + " saved successfully.");
                 notification.setDuration(5000);
                 notification.open();
+                star.setVisible(false);
             } catch (Exception ex) {
                 Notification notification = new Notification();
                 notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -62,7 +63,7 @@ public class DepartureView extends VerticalLayout {
         departureAirportModelSave = departureAirportModel;
         H2 typeLabel;
         List<Component> components = new ArrayList<>();
-        if(!isSaved) {
+        if (!isSaved) {
             components.add(star);
         }
         Airport airport = departureAirportModel.getAirport();
@@ -70,7 +71,7 @@ public class DepartureView extends VerticalLayout {
         typeLabel = new H2("Departure");
         Button close = new Button();
 
-        if(isSaved) {
+        if (isSaved) {
             close.setIcon(new Icon(VaadinIcon.TRASH));
             ConfirmDialog dialog = new ConfirmDialog();
             dialog.setHeader("Unsave this flight?");
@@ -92,7 +93,8 @@ public class DepartureView extends VerticalLayout {
                     notification.setText("Saved flight removed successfully");
                     notification.setDuration(5000);
                     notification.open();
-                    if(parent.getComponentCount()==0) {
+
+                    if (parent.getComponentCount() == 0) {
                         parent.removeAll();
                         NothingFound nf = new NothingFound(true);
                         parent.add(nf);
@@ -118,14 +120,17 @@ public class DepartureView extends VerticalLayout {
 
             });
         }
-        close.getStyle().set("bottom", "1vh");
+
+        typeLabel.getStyle().set("bottom", "15%");
+        close.getStyle().set("bottom", "15%");
 
         typeLabel.getStyle().set("font-weight", "bold");
-        typeLabel.getStyle().set("font-size","130%");
+        typeLabel.getStyle().set("font-size", "130%");
         HorizontalLayout labelClose = new HorizontalLayout();
         labelClose.setJustifyContentMode(JustifyContentMode.BETWEEN);
         labelClose.setWidthFull();
-        labelClose.setAlignItems(Alignment.AUTO);
+        labelClose.setAlignItems(Alignment.CENTER);
+        labelClose.setDefaultVerticalComponentAlignment(Alignment.CENTER);
         Icon vaadinIcon = new Icon(VaadinIcon.AIRPLANE);
         labelClose.add(vaadinIcon, typeLabel, close);
         add(labelClose);
@@ -136,15 +141,15 @@ public class DepartureView extends VerticalLayout {
         Icon positionIcon = new Icon(VaadinIcon.MAP_MARKER);
         positionIcon.setTooltipText("Airport position");
         positionIcon.addClickListener(e -> {
-            UI.getCurrent().getPage().executeJs("window.open(\"https://maps.google.com/?q="+ airport.getLatitude()+","+ airport.getLongitude()+"\");");
+            UI.getCurrent().getPage().executeJs("window.open(\"https://maps.google.com/?q=" + airport.getLatitude() + "," + airport.getLongitude() + "\");");
         });
         HorizontallyAlignedView scheduledTime = new HorizontallyAlignedView("Scheduled runaway time", departure.getScheduledTime() == null ? "Not yed announced" : ViewsUtils.formatDate(departure.getScheduledTime()));
         components.add(scheduledTime);
-        if(departure.getDelay() != null && !departure.getDelay().isBlank() &&  !departure.getDelay().equals("0")) {
+        if (departure.getDelay() != null && !departure.getDelay().isBlank() && !departure.getDelay().equals("0")) {
             HorizontallyAlignedView delayView = new HorizontallyAlignedView("Flight delay time", departure.getDelay());
             components.add(delayView);
         }
-        if(departure.getDelay() != null && !departure.getDelay().isBlank()) {
+        if (departure.getEstimatedTime() != null && !departure.getEstimatedTime().isBlank()) {
             HorizontallyAlignedView actualTimeView = new HorizontallyAlignedView("Actual runaway time", ViewsUtils.formatDate(departure.getEstimatedTime()));
             components.add(actualTimeView);
         }
@@ -152,7 +157,7 @@ public class DepartureView extends VerticalLayout {
         airportView.add(positionIcon);
 
         components.add(airportView);
-        if(departure.getTerminal() != null && !departure.getTerminal().isBlank() ) {
+        if (departure.getTerminal() != null && !departure.getTerminal().isBlank()) {
             HorizontallyAlignedView terminalView = new HorizontallyAlignedView("Terminal", departure.getTerminal());
             components.add(terminalView);
         }
@@ -163,11 +168,11 @@ public class DepartureView extends VerticalLayout {
         components.forEach(it -> setHorizontalComponentAlignment(Alignment.CENTER, it));
         setHorizontalComponentAlignment(Alignment.END, close);
         addClassName(SUCCESS_10);
-        getStyle().set( "border-radius", "0.5em");
-        getStyle().set("border","solid grey");
-        getStyle().set("padding","25px");
+        getStyle().set("border-radius", "0.5em");
+        getStyle().set("border", "solid grey");
+        getStyle().set("padding", "25px");
         setWidth("30vw");
-        getStyle().set("background-color","#36485F");
+        getStyle().set("background-color", "#36485F");
         components.forEach(this::add);
     }
 

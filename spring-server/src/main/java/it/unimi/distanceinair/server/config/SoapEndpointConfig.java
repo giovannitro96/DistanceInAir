@@ -35,6 +35,7 @@ public class SoapEndpointConfig extends WsConfigurerAdapter {
     @Autowired
     AppProperties appProperties;
 
+
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -77,9 +78,8 @@ public class SoapEndpointConfig extends WsConfigurerAdapter {
     @Bean
     Wss4jSecurityInterceptor securityInterceptor() throws Exception {
 
-        Wss4jSecurityInterceptor securityInterceptor = new Wss4jSecurityInterceptor();
+      Wss4jSecurityInterceptor securityInterceptor = new Wss4jSecurityInterceptor();
         securityInterceptor.setValidationActions("Signature Encrypt UsernameToken");
-        securityInterceptor.setSecurementEncryptionUser("studente-giovanni");
         securityInterceptor.setValidationSignatureCrypto(getClientCryptoFactoryBean().getObject());
         securityInterceptor.setValidationCallbackHandler(securityCallbackHandler());
         securityInterceptor.setValidationDecryptionCrypto(getServerCryptoFactoryBean().getObject());
@@ -89,16 +89,16 @@ public class SoapEndpointConfig extends WsConfigurerAdapter {
 
 
         securityInterceptor.setSecurementActions("Signature Encrypt");
-        securityInterceptor.setSecurementUsername(appProperties.getServerPwd());
-        securityInterceptor.setSecurementUsername("progetto-unimi");
+        securityInterceptor.setSecurementUsername(appProperties.getServerAlias());
         securityInterceptor.setSecurementPassword(appProperties.getServerPwd());
-        securityInterceptor.setSecurementSignatureCrypto(getServerCryptoFactoryBean().getObject());
         securityInterceptor.setSecurementSignatureKeyIdentifier("IssuerSerial");
         securityInterceptor.setSecurementSignatureAlgorithm(WSS4JConstants.RSA_SHA1);
         securityInterceptor.setSecurementSignatureDigestAlgorithm(WSS4JConstants.SHA1);
+        securityInterceptor.setSecurementEncryptionUser(appProperties.getClientAlias());
+        securityInterceptor.setSecurementSignatureCrypto(getServerCryptoFactoryBean().getObject());
         securityInterceptor.setSecurementEncryptionCrypto(getClientCryptoFactoryBean().getObject());
 
-        return securityInterceptor;
+       return securityInterceptor;
     }
 
     @Bean

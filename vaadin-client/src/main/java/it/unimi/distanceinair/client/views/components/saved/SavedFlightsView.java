@@ -25,16 +25,17 @@ import java.util.List;
 @RolesAllowed("USER")
 @SpringComponent
 @UIScope
-public class SavedFlights extends VerticalLayout {
+public class SavedFlightsView extends VerticalLayout {
 
     @Autowired
     ServerApis flightApi;
     HorizontalLayout container;
 
-    SavedFlights() {
+    SavedFlightsView() {
         H2 h2 = new H2("Here you can find your saved flights, " +
                 "you can review and remove them. Have a good flight!");
         add(h2);
+        setHorizontalComponentAlignment(Alignment.CENTER, h2);
         container = new HorizontalLayout();
         container.setSizeFull();
     }

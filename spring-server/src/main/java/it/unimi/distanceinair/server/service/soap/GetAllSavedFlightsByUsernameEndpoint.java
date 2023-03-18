@@ -1,5 +1,6 @@
 package it.unimi.distanceinair.server.service.soap;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import it.unimi.distanceinair.server.service.endpointservices.FlightsService;
 import it.unimi.distanceinair.server.util.TokenUtil;
@@ -55,5 +56,4 @@ public class GetAllSavedFlightsByUsernameEndpoint {
         response.setData(flightsService.getAllFlights(claims.get("preferred_username").toString()));
         return response;
     }
-
     }

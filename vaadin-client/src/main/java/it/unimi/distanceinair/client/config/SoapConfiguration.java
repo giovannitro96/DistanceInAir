@@ -80,7 +80,7 @@ class SoapConfiguration extends WsConfigurerAdapter {
         return cryptoFactoryBean;
     }
 
-    @Bean
+   @Bean
     Wss4jSecurityInterceptor securityInterceptor() throws Exception {
         Wss4jSecurityInterceptor securityInterceptor = new Wss4jSecurityInterceptor();
 

@@ -8,25 +8,21 @@ spring:
       maximumPoolSize: '5'
     url: jdbc:postgresql://postgres:5432/keycloak?currentSchema=flights
     password: password
+  flyway:
+    enabled: true
   jpa:
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
 logging:
   level:
-    root: DEBUG
+    root: INFO
     org:
       springframework:
-        ws:
-          client:
-            MessageTracing:
-              sent: INFO
-              received: INFO
-          server:
-            MessageTracing:
-              sent: INFO
-              received: INFO
+        ws: DEBUG
 application:
-  access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiYTRjZjZjODU3Zjc3MWFjMmQzZDQ0YmQ0ZjE2MzdjNGZkZWY3ODAwMzdiYzgxNzZmNTMzN2YxNmViOTAxODEwMGNhMzNjYTkyODcyZjhiZDIiLCJpYXQiOjE2Nzc0MzA3MjIsIm5iZiI6MTY3NzQzMDcyMiwiZXhwIjoxNzA4OTY2NzIyLCJzdWIiOiIxODA0NCIsInNjb3BlcyI6W119.h5Ue-_fAusR3PBwBJJmUy0rZNfMuJ42yrY5ZzkQUAzdjnNEkD-rw4VK5LzSgHGmE_d8p-VkRMuGfcA_CURUEmQ
+  access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiN2MzYjRiMTM1ZDllMDUxOWJjZjFhMTE4NjA5ZDNjNzZiNzRiOTlhMmRhMGY4ZTJiNmEzYTQzZjI4NDBhMDVjM2UzOGYwYzY4OTZmYjVmMjciLCJpYXQiOjE2NzkwNTUxMDUsIm5iZiI6MTY3OTA1NTEwNSwiZXhwIjoxNzEwNjc3NTA1LCJzdWIiOiIxODA0NCIsInNjb3BlcyI6W119.jafc-vwfAVlMUh_-aQ-eW6W2ga3iKgsYs0-bXAfLuDDEXQ2T8pV8m7-uUJWkH9X_AWWn1mRN8X5iFQIIBvm9tg
   client_pwd: u9u6GT&j!10^
   server_pwd: ART*18HKUhC1
   server_keystore: classpath:server.jks

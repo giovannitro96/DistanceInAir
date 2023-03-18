@@ -23,9 +23,9 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import it.unimi.distanceinair.client.service.ServerApis;
 import it.unimi.distanceinair.client.views.components.appnav.AppNav;
 import it.unimi.distanceinair.client.views.components.appnav.AppNavItem;
-import it.unimi.distanceinair.client.views.components.homepage.HomepageView;
+import it.unimi.distanceinair.client.views.components.homepage.SearchView;
 import it.unimi.distanceinair.client.views.components.index.IndexView;
-import it.unimi.distanceinair.client.views.components.saved.SavedFlights;
+import it.unimi.distanceinair.client.views.components.saved.SavedFlightsView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -87,11 +87,11 @@ public class MainLayout extends AppLayout {
         if (accessChecker.hasAccess(IndexView.class)) {
             nav.addItem(new AppNavItem("Homepage", IndexView.class, new Icon(VaadinIcon.GLOBE)));
         }
-        if (accessChecker.hasAccess(HomepageView.class)) {
-            nav.addItem(new AppNavItem("Search flights", HomepageView.class, new Icon(VaadinIcon.AIRPLANE)));
+        if (accessChecker.hasAccess(SearchView.class)) {
+            nav.addItem(new AppNavItem("Search flights", SearchView.class, new Icon(VaadinIcon.AIRPLANE)));
         }
-        if(accessChecker.hasAccess(SavedFlights.class)) {
-            nav.addItem(new AppNavItem("Saved flights", SavedFlights.class, new Icon(VaadinIcon.DATABASE)));
+        if(accessChecker.hasAccess(SavedFlightsView.class)) {
+            nav.addItem(new AppNavItem("Saved flights", SavedFlightsView.class, new Icon(VaadinIcon.DATABASE)));
         }
 
         return nav;

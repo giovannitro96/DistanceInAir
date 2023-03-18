@@ -2,6 +2,8 @@ package it.unimi.distanceinair.client.views.components.homepage;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -32,7 +34,7 @@ import java.io.IOException;
 @PageTitle("Search flights")
 @Route(value = "search", layout = MainLayout.class)
 @RolesAllowed("USER")
-public class HomepageView extends VerticalLayout {
+public class SearchView extends VerticalLayout {
 
     private final TextField flightCode;
 
@@ -41,15 +43,19 @@ public class HomepageView extends VerticalLayout {
     private final Select<String> select;
     private final HorizontalLayout flexLayout;
    // private PasswordField passwordField;
-    @Autowired
+   @Autowired
    ServerApis serverApis;
 
-    public HomepageView() {
+    public SearchView() {
+        VerticalLayout head = new VerticalLayout();
+        H3 h1 = new H3("Search your flights here, insert the code in the form and " +
+                "select the type. If the flight has already departed or landed you will " +
+                "not find anything. Once you've found it, you can save it selecting the star!");
+        head.add(h1);
+        head.setWidth("50%");
+        head.setPadding(false);
         ViewsUtils.forceRefreshToken();
         this.getElement().setAttribute("theme", Lumo.DARK);
-      //  passwordField = new PasswordField("Password");
-       // passwordField.setRequired(true);
-       // passwordField.setValue("u9u6GT&j!10^");
         flightCode = new TextField("Flight code");
         flightCode.setRequired(true);
         flightCode.setPattern("(?<![\\da-z,A-Z])(?!\\d{2})([a-z,A-Z\\d]{2})\\s?(\\d{2,4})(?!\\d)");
@@ -145,7 +151,7 @@ public class HomepageView extends VerticalLayout {
 
         horizontalLayout.add(flightCode, select);
         horizontalLayout.setVerticalComponentAlignment(Alignment.CENTER, flightCode, select);
-        setHorizontalComponentAlignment(Alignment.CENTER, getData, horizontalLayout, yourResults, nothingFound, flexLayout);
-        add(horizontalLayout, getData, yourResults, nothingFound, flexLayout);
+        setHorizontalComponentAlignment(Alignment.CENTER, head, getData, horizontalLayout, yourResults, nothingFound, flexLayout);
+        add(head, horizontalLayout, getData, yourResults, nothingFound, flexLayout);
     }
 }

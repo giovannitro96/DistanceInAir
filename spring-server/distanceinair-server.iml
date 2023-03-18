@@ -14,7 +14,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="entityManagerFactory" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -58,22 +60,8 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.70" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web-services:2.7.7" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.xml.ws:jakarta.xml.ws-api:2.3.3" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: jakarta.jws:jakarta.jws-api:2.1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-oxm:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.ws:spring-ws-core:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.ws:spring-ws-support:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.ws:spring-xml:3.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-jms:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-messaging:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-jpa:2.7.7" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:2.7.7" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.7" level="project" />
@@ -89,48 +77,20 @@
     <orderEntry type="library" name="Maven: org.jboss:jandex:2.4.2.Final" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.1.2.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.7" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jaxb:txw2:2.3.7" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.12" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.sun.activation:jakarta.activation:1.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.ws:spring-ws-security:4.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.7.6" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:5.7.6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.wss4j:wss4j-ws-security-dom:2.4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.wss4j:wss4j-ws-security-common:2.4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-saml-impl:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-profile-api:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-core:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.2.14" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-saml-api:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xmlsec-api:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-soap-api:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-security-impl:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-security-api:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.59" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xmlsec-impl:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: net.shibboleth.utilities:java-support:7.5.2" level="project" />
-    <orderEntry type="library" name="Maven: joda-time:joda-time:2.10.10" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:30.1-jre" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:failureaccess:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-impl:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-api:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-saml-impl:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-saml-api:3.4.6" level="project" />
-    <orderEntry type="library" name="Maven: org.jasypt:jasypt:1.9.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.geronimo.javamail:geronimo-javamail_1.4_mail:1.8.4" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.ehcache:ehcache:3.10.8" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: javax.cache:cache-api:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.santuario:xmlsec:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml.woodstox:woodstox-core:6.2.8" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.woodstox:stax2-api:4.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.messaging.saaj:saaj-impl:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet.staxex:stax-ex:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: wsdl4j:wsdl4j:1.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.flywaydb:flyway-core:8.5.13" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.org.apache.xml.security:xmlsec:2.0" level="project" />
     <orderEntry type="library" name="Maven: org.modelmapper:modelmapper:3.1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.postgresql:postgresql:42.5.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.checkerframework:checker-qual:3.5.0" level="project" />
@@ -142,24 +102,52 @@
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.9.1" level="project" />
     <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt-impl:0.11.1" level="project" />
     <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt-api:0.11.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.2" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jaxb:txw2:2.3.7" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.8" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.16" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.xml.messaging.saaj:saaj-impl:1.5.3" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.xml.soap:jakarta.xml.soap-api:1.4.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.sun.activation:jakarta.activation:1.2.2" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.xml.wss:xws-security:3.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.soap:saaj-api:1.3" level="project" />
-    <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.3.1" level="project" />
-    <orderEntry type="library" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.stream:stax-api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.ws:jaxws-api:2.3.1" level="project" />
-    <orderEntry type="library" name="Maven: javax.xml.soap:javax.xml.soap-api:1.4.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.24" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.wss4j:wss4j-ws-security-common:2.4.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.santuario:xmlsec:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml.woodstox:woodstox-core:6.2.6" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.codehaus.woodstox:stax2-api:4.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-saml-impl:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-profile-api:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-core:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.2.14" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-saml-api:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xmlsec-api:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-soap-api:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-security-impl:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-security-api:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xmlsec-impl:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: net.shibboleth.utilities:java-support:7.5.2" level="project" />
+    <orderEntry type="library" name="Maven: org.cryptacular:cryptacular:1.2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.64" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.10.10" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:30.1-jre" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:failureaccess:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-impl:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-api:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-saml-impl:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.opensaml:opensaml-xacml-saml-api:3.4.6" level="project" />
+    <orderEntry type="library" name="Maven: org.jasypt:jasypt:1.9.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.geronimo.javamail:geronimo-javamail_1.4_mail:1.8.4" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.xml.ws:jakarta.xml.ws-api:2.3.3" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.xml.soap:jakarta.xml.soap-api:1.4.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: jakarta.jws:jakarta.jws-api:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.wss4j:wss4j-ws-security-dom:2.4.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.ehcache:ehcache:3.10.8" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: javax.cache:cache-api:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.ws:spring-ws-core:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.ws:spring-xml:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-oxm:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.ws:spring-ws-security:3.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.7.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:5.7.6" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.10.9.2" level="project" />
   </component>
 </module>

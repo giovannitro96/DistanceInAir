@@ -44,7 +44,12 @@ public class GetDistanceInAirEndpoint {
 
         GetDistanceByFlightCodeRequest request = (GetDistanceByFlightCodeRequest) unmarshaller.unmarshal(bodyDomSource);
         log.info("New request arrived: {}", request);
-        return getDistanceFromApi.getFromApi(request);
+        GetDistanceByFlightCodeResponse response = getDistanceFromApi.getFromApi(request);
+        log.info("STO MANDNADO IL MESSAGGIO INDIETRO. è ANDATA BENE, LA RISPOSTA è:"+ response.getData().get(0));
+        return response;
     }
+
+    //CAPIRE PERCHé IN LOCALE FUNZIONA E SU DOCKER NO
+    //COSA STO SBAGLIANDO? PORCO DIO
 
 }

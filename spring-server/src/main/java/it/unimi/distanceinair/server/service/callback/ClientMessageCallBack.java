@@ -23,6 +23,5 @@ public final class ClientMessageCallBack
         if (webServiceMessage instanceof SoapMessage soapMessage) {
             soapMessage.setSoapAction(soapAction);
         }
-
     }
 }

@@ -10,7 +10,7 @@ soap:
   client_keystore: classpath:client-keystore.jks
   server_alias: progetto-unimi
   client_alias: studente-giovanni
-  api-url: http://localhost:8082/
+  api-url: http://server:8082/
 spring:
   mustache:
     check-template-location: 'false'
@@ -26,7 +26,7 @@ spring:
             client-id: soasec-client
         provider:
           keycloak:
-            issuer-uri: http://host.docker.internal:8280/auth/realms/soasec-project
+            issuer-uri: http://docker.for.mac.localhost:8280/auth/realms/soasec-project
             user-name-attribute: preferred_username
 
 logging:
