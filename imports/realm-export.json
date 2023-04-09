@@ -788,7 +788,7 @@
       "clientId": "soasec-client",
       "name": "vaadin client",
       "description": "",
-      "rootUrl": "http://localhost:8080/",
+      "rootUrl": "http://localhost/",
       "adminUrl": "",
       "baseUrl": "/",
       "surrogateAuthRequired": false,
@@ -796,7 +796,7 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:8080/login/oauth2/code/keycloak"
+        "http://localhost/login/oauth2/code/keycloak"
       ],
       "webOrigins": [
         "+"
@@ -814,7 +814,7 @@
       "attributes": {
         "oidc.ciba.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
-        "post.logout.redirect.uris": "http://localhost:8080",
+        "post.logout.redirect.uris": "http://localhost",
         "display.on.consent.screen": "false",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"

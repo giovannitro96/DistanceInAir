@@ -47,7 +47,7 @@ services:
   client:
     image: vaadin-docker
     ports:
-    - "8080:8080"
+      - "80:80"
     depends_on:
       keycloak:
         condition: service_healthy
