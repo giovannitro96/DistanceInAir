@@ -1,17 +1,13 @@
 package it.unimi.distanceinair.server.util;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.gson.io.GsonDeserializer;
 import it.unimi.distanceinair.server.config.AppProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -23,8 +19,13 @@ import java.util.Optional;
 @Component
 @Slf4j
 public class TokenUtil {
-    @Autowired
-    AppProperties appProperties;
+
+    final AppProperties appProperties;
+
+    public TokenUtil(AppProperties appProperties) {
+        this.appProperties = appProperties;
+    }
+
     public Optional<RSAPublicKey> getParsedPublicKey() {
         String PUB_KEY = appProperties.getPublicKey();
         String PUBLIC_KEY = PUB_KEY.replace(" ", "");

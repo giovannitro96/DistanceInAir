@@ -5,36 +5,37 @@ import it.unimi.distanceinair.server.dao.FlightsDao;
 import it.unimi.distanceinair.server.model.FlightEntity;
 import it.unimi.distanceinair.server.xml.domain.DistanceInAir;
 import it.unimi.distanceinair.server.xml.domain.FlightDto;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class FlightsService {
 
-    @Autowired
     FlightsDao flightsDao;
 
-    @Autowired
     GetAirportService getAirportService;
 
-    @Autowired
     BasicConverter conv;
+
+    public FlightsService(FlightsDao flightsDao, GetAirportService getAirportService,
+                          BasicConverter conv) {
+        this.flightsDao = flightsDao;
+        this.getAirportService = getAirportService;
+        this.conv = conv;
+    }
+
     public List<FlightDto> getAllFlights(String username) {
         log.info("GET user {} requested all his flights", username);
         return flightsDao.getAllFlights(username).stream()
                 .map(it -> conv.map(it, FlightDto.class)).toList().stream()
-               .peek(it ->
-                       it.setAirport(getAirportService.getAirportByIataCode(it.getIataCode())))
-               .collect(Collectors.toList());
+                .peek(it ->
+                        it.setAirport(getAirportService.getAirportByIataCode(it.getIataCode())))
+                .collect(Collectors.toList());
     }
 
     public UUID saveFlight(String username, DistanceInAir flight) {

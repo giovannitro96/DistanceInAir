@@ -1,13 +1,12 @@
 package it.unimi.distanceinair.server.service.soap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import it.unimi.distanceinair.server.service.endpointservices.FlightsService;
 import it.unimi.distanceinair.server.util.TokenUtil;
 import it.unimi.distanceinair.server.xml.domain.GetAllSavedFlightsByUsernameRequest;
 import it.unimi.distanceinair.server.xml.domain.GetAllSavedFlightsByUsernameResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -23,15 +22,14 @@ import javax.xml.transform.dom.DOMSource;
 
 @Endpoint
 @Slf4j
+@RequiredArgsConstructor
 public class GetAllSavedFlightsByUsernameEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.unimi.it/distanceinair/";
 
-    @Autowired
-    FlightsService flightsService;
+    final FlightsService flightsService;
 
-    @Autowired
-    TokenUtil tokenUtil;
+    final TokenUtil tokenUtil;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetAllSavedFlightsByUsernameRequest")
     @SoapAction(NAMESPACE_URI + "getAllFlights")

@@ -3,7 +3,6 @@ package it.unimi.distanceinair.server.config;
 import org.apache.wss4j.common.WSS4JConstants;
 import org.apache.wss4j.dom.WSConstants;
 import org.apache.wss4j.dom.engine.WSSConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -31,10 +30,15 @@ public class SoapEndpointConfig extends WsConfigurerAdapter {
 
     private static final String NAMESPACE_URI = "http://www.unimi.it/distanceinair/";
 
+    final AppProperties appProperties;
 
-    @Autowired
-    AppProperties appProperties;
+    final AppUsernameTokenValidator usernameTokenValidator;
 
+    public SoapEndpointConfig(AppProperties appProperties,
+                              AppUsernameTokenValidator usernameTokenValidator) {
+        this.appProperties = appProperties;
+        this.usernameTokenValidator = usernameTokenValidator;
+    }
 
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
@@ -78,15 +82,14 @@ public class SoapEndpointConfig extends WsConfigurerAdapter {
     @Bean
     Wss4jSecurityInterceptor securityInterceptor() throws Exception {
 
-      Wss4jSecurityInterceptor securityInterceptor = new Wss4jSecurityInterceptor();
+        Wss4jSecurityInterceptor securityInterceptor = new Wss4jSecurityInterceptor();
         securityInterceptor.setValidationActions("Signature Encrypt UsernameToken");
         securityInterceptor.setValidationSignatureCrypto(getClientCryptoFactoryBean().getObject());
         securityInterceptor.setValidationCallbackHandler(securityCallbackHandler());
         securityInterceptor.setValidationDecryptionCrypto(getServerCryptoFactoryBean().getObject());
         WSSConfig wssConfig = WSSConfig.getNewInstance();
-        wssConfig.setValidator(WSConstants.USERNAME_TOKEN, AppUsernameTokenValidator.class);
+        wssConfig.setValidator(WSConstants.USERNAME_TOKEN, usernameTokenValidator);
         securityInterceptor.setWssConfig(wssConfig);
-
 
         securityInterceptor.setSecurementActions("Signature Encrypt");
         securityInterceptor.setSecurementUsername(appProperties.getServerAlias());
@@ -98,7 +101,7 @@ public class SoapEndpointConfig extends WsConfigurerAdapter {
         securityInterceptor.setSecurementSignatureCrypto(getServerCryptoFactoryBean().getObject());
         securityInterceptor.setSecurementEncryptionCrypto(getClientCryptoFactoryBean().getObject());
 
-       return securityInterceptor;
+        return securityInterceptor;
     }
 
     @Bean

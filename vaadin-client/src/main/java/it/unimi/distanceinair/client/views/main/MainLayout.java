@@ -39,6 +39,7 @@ public class MainLayout extends AppLayout {
 
     @Autowired
     ServerApis serverApis;
+
     private final AccessAnnotationChecker accessChecker;
     private H2 viewTitle;
 
@@ -139,6 +140,6 @@ public class MainLayout extends AppLayout {
 
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
-        return title == null ? "" : title.value();
+        return title == null ? "" : title.value().split("\\|")[1];
     }
 }

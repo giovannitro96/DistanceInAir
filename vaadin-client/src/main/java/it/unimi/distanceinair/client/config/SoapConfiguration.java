@@ -2,7 +2,6 @@ package it.unimi.distanceinair.client.config;
 
 import it.unimi.distanceinair.client.service.ServerApis;
 import org.apache.wss4j.common.WSS4JConstants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -21,8 +20,11 @@ import java.io.IOException;
 @Configuration
 class SoapConfiguration extends WsConfigurerAdapter {
 
-    @Autowired
     AppProperties appProperties;
+
+    public SoapConfiguration(AppProperties appProperties) {
+        this.appProperties = appProperties;
+    }
 
     @Bean
     Jaxb2Marshaller marshaller() {
@@ -116,7 +118,7 @@ class SoapConfiguration extends WsConfigurerAdapter {
             HttpsUrlConnectionMessageSender messageSender,
             Wss4jSecurityInterceptor securityInterceptor
     ) {
-        ServerApis serverApis = new ServerApis();
+        ServerApis serverApis = new ServerApis(appProperties);
 
         serverApis.setInterceptors(new ClientInterceptor[]{securityInterceptor});
         serverApis.setMessageSender(messageSender);

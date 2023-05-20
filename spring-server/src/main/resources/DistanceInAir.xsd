@@ -66,7 +66,20 @@
         </s:complexType>
     </s:element>
 
+  <s:element name="GetPossibleFlightsRequest">
+                <s:complexType>
+                    <s:sequence>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
 
+    <s:element name="GetPossibleFlightsResponse">
+        <s:complexType>
+            <s:sequence>
+                <s:element minOccurs="1" maxOccurs="10" name="flights" type="tns:DistanceInAir" />
+            </s:sequence>
+        </s:complexType>
+    </s:element>
 
     <s:complexType name="DistanceInAir">
         <s:sequence>

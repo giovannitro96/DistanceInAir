@@ -1,7 +1,5 @@
 package it.unimi.distanceinair.server.model;
 
-import it.unimi.distanceinair.server.xml.domain.DistanceInAir;
-import it.unimi.distanceinair.server.xml.domain.Flight;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +15,15 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="keyclockuser")
+@Table(name = "keyclockuser")
 public class UserEntity {
     @Id
     @GeneratedValue()
     private UUID id;
     private String username;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,
+            targetEntity = FlightEntity.class)
+    @OrderBy("scheduledTime DESC")
     private List<FlightEntity> flightsList;
 
 }

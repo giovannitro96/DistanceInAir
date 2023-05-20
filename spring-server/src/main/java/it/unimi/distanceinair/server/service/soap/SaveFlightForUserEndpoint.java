@@ -6,7 +6,6 @@ import it.unimi.distanceinair.server.util.TokenUtil;
 import it.unimi.distanceinair.server.xml.domain.SaveFlightForUserRequest;
 import it.unimi.distanceinair.server.xml.domain.SaveFlightForUserResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -25,11 +24,15 @@ import javax.xml.transform.dom.DOMSource;
 public class SaveFlightForUserEndpoint {
     private static final String NAMESPACE_URI = "http://www.unimi.it/distanceinair/";
 
-    @Autowired
-    FlightsService flightsService;
+    final FlightsService flightsService;
 
-    @Autowired
-    TokenUtil tokenUtil;
+    final TokenUtil tokenUtil;
+
+    public SaveFlightForUserEndpoint(FlightsService flightsService,
+                                     TokenUtil tokenUtil) {
+        this.flightsService = flightsService;
+        this.tokenUtil = tokenUtil;
+    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "SaveFlightForUserRequest")
     @SoapAction(NAMESPACE_URI + "saveFlightForUser")

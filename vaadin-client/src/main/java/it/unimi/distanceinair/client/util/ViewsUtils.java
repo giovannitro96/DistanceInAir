@@ -1,12 +1,12 @@
 package it.unimi.distanceinair.client.util;
 
-import com.google.gson.Gson;
-import com.vaadin.flow.component.UI;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,10 +41,23 @@ public class ViewsUtils {
         Pattern pattern = Pattern.compile(":.[0-9]\\..*");
         Matcher matcher = pattern.matcher(dateString);
         String input = matcher.replaceAll("");
-        String[] dateArray =  input.split(" ");
+        String[] dateArray = input.split(" ");
         ArrayList<String> arrayList = Arrays.stream(dateArray[0].split("-")).collect(Collectors.toCollection(ArrayList::new));
         Collections.reverse(arrayList);
         return String.join("/", arrayList) + " " + dateArray[1];
     }
 
+
+    public static boolean hasDepartedOrArrived(String dateString) {
+        try {
+            Date actualDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+            simpleDateFormat.applyPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            Date oldDate = simpleDateFormat.parse(dateString);
+            return actualDate.compareTo(oldDate) > 0;
+        } catch (ParseException ex) {
+            System.out.println("error");
+        }
+        return false;
+    }
 }

@@ -92,16 +92,10 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <artifactId>wss4j-ws-security-common</artifactId>
             <groupId>org.apache.wss4j</groupId>
-            <version>2.4.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <artifactId>wss4j-ws-security-dom</artifactId>
-            <groupId>org.apache.wss4j</groupId>
-            <version>2.4.1</version>
-            <scope>compile</scope>
+            <artifactId>wss4j</artifactId>
+            <version>3.0.0</version>
+            <type>pom</type>
         </dependency>
         <dependency>
             <artifactId>spring-ws-core</artifactId>

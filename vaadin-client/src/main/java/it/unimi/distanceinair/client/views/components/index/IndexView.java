@@ -8,7 +8,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import it.unimi.distanceinair.client.views.main.MainLayout;
 
-@PageTitle("Homepage")
+@PageTitle("DistanceInAir | Homepage")
 @Route(value = "", layout = MainLayout.class)
 @AnonymousAllowed()
 public class IndexView extends VerticalLayout {
@@ -18,8 +18,8 @@ public class IndexView extends VerticalLayout {
 
         add(new H1("Welcome to Distance in Air!"));
         VerticalLayout vl = new VerticalLayout();
-        vl.add(new H3("Here you can search for international flights, you must first register to use this service." +
-                "Don't try to inspect outgoing and ingoing requests, they are encrypted!"));
+        vl.add(new H3("Here you can search for international flights, you must first register to use this service."));
+        vl.add(new H3("Don't try to inspect outgoing and ingoing requests, they are encrypted!"));
         vl.setWidth("80%");
         add(vl);
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);

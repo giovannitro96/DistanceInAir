@@ -54,6 +54,19 @@
 
     <wsdl:binding name="DistanceInAirSoap" type="tns:DistanceInAirSoap">
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetPossibleFlights">
+            <soap:operation soapAction="http://localhost:8080/GetPossibleFlights" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:binding name="DistanceInAirSoap" type="tns:DistanceInAirSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="SaveFlightForUser">
             <soap:operation soapAction="http://localhost:8080/SaveFlightForUser" style="document"/>
             <wsdl:input>

@@ -4,9 +4,7 @@ import it.unimi.distanceinair.server.model.FlightEntity;
 import it.unimi.distanceinair.server.model.UserEntity;
 import it.unimi.distanceinair.server.repository.FlightRepository;
 import it.unimi.distanceinair.server.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -15,18 +13,23 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class FlightsDao {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    FlightRepository flightRepository;
+
+    final UserRepository userRepository;
+
+    final FlightRepository flightRepository;
+
+    public FlightsDao(UserRepository userRepository,
+                      FlightRepository flightRepository) {
+        this.userRepository = userRepository;
+        this.flightRepository = flightRepository;
+    }
 
     @Transactional
     public List<FlightEntity> getAllFlights(String username) {
         UserEntity userEntity = userRepository.findUserEntityByUsername(username);
-        if(userEntity == null) {
+        if (userEntity == null) {
             UserEntity newUser = new UserEntity();
             newUser.setUsername(username);
             newUser.setFlightsList(new ArrayList<>());

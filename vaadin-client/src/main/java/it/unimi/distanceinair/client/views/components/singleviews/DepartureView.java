@@ -5,6 +5,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -85,20 +86,26 @@ public class DepartureView extends VerticalLayout {
             dialog.addConfirmListener(event -> {
                 try {
                     ViewsUtils.forceRefreshToken();
-                    serverApis.removeFlightFromPref(ViewsUtils.getToken(), departureAirportModel.getId());
-                    HorizontalLayout parent = (HorizontalLayout) this.getParent().get();
-                    parent.remove(this);
-                    Notification notification = new Notification();
-                    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-                    notification.setText("Saved flight removed successfully");
-                    notification.setDuration(5000);
-                    notification.open();
-
-                    if (parent.getComponentCount() == 0) {
-                        parent.removeAll();
-                        NothingFound nf = new NothingFound(true);
-                        parent.add(nf);
-                        parent.setAlignItems(Alignment.CENTER);
+                    if (serverApis.removeFlightFromPref(ViewsUtils.getToken(), departureAirportModel.getId())) {
+                        HorizontalLayout parent = (HorizontalLayout) this.getParent().get();
+                        parent.remove(this);
+                        Notification notification = new Notification();
+                        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                        notification.setText("Saved flight removed successfully");
+                        notification.setDuration(5000);
+                        notification.open();
+                        if (parent.getComponentCount() == 0) {
+                            parent.removeAll();
+                            NothingFound nf = new NothingFound(true);
+                            parent.add(nf);
+                            parent.setAlignItems(Alignment.CENTER);
+                        }
+                    } else {
+                        Notification notification = new Notification();
+                        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                        notification.setText("Error while removing the flight from saved");
+                        notification.setDuration(5000);
+                        notification.open();
                     }
                 } catch (Exception ex) {
                     Notification notification = new Notification();
@@ -121,7 +128,7 @@ public class DepartureView extends VerticalLayout {
             });
         }
 
-        typeLabel.getStyle().set("bottom", "15%");
+        typeLabel.getStyle().set("bottom", "80%");
         close.getStyle().set("bottom", "15%");
 
         typeLabel.getStyle().set("font-weight", "bold");
@@ -143,6 +150,11 @@ public class DepartureView extends VerticalLayout {
         positionIcon.addClickListener(e -> {
             UI.getCurrent().getPage().executeJs("window.open(\"https://maps.google.com/?q=" + airport.getLatitude() + "," + airport.getLongitude() + "\");");
         });
+        if (ViewsUtils.hasDepartedOrArrived(departure.getScheduledTime())) {
+            H3 departedLabel = new H3();
+            departedLabel.setText("Departed");
+            components.add(departedLabel);
+        }
         HorizontallyAlignedView scheduledTime = new HorizontallyAlignedView("Scheduled runaway time", departure.getScheduledTime() == null ? "Not yed announced" : ViewsUtils.formatDate(departure.getScheduledTime()));
         components.add(scheduledTime);
         if (departure.getDelay() != null && !departure.getDelay().isBlank() && !departure.getDelay().equals("0")) {

@@ -2,7 +2,6 @@ package it.unimi.distanceinair.server.service.endpointservices;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.unimi.distanceinair.server.xml.domain.Airport;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +18,7 @@ import java.net.URI;
 @Service
 @Slf4j
 public class GetAirportService {
+
     final String AIRPORT_BASE_URL = "https://airport-info.p.rapidapi.com/airport";
 
     public Airport getAirportByIataCode(String iataCode) {
@@ -33,7 +33,7 @@ public class GetAirportService {
             HttpHeaders headers = new HttpHeaders();
             headers.set("X-RapidAPI-Key", "88d9a9dda1mshc4fc8b48c53a1b7p1b37dajsn34e012408642");
             headers.set("X-RapidAPI-Host", "airport-info.p.rapidapi.com");
-            HttpEntity entity = new HttpEntity("", headers);
+            HttpEntity<String> entity = new HttpEntity<>("", headers);
 
             ResponseEntity<String> airport = restTemplate.exchange(targetUrl, HttpMethod.GET, entity, String.class);
             ObjectMapper mapper = new ObjectMapper();

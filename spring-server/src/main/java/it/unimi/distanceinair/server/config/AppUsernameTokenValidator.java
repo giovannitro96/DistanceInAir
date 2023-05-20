@@ -1,5 +1,6 @@
 package it.unimi.distanceinair.server.config;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.wss4j.common.ext.WSPasswordCallback;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.dom.handler.RequestData;
@@ -7,6 +8,7 @@ import org.apache.wss4j.dom.message.token.UsernameToken;
 import org.apache.wss4j.dom.validate.Credential;
 import org.apache.wss4j.dom.validate.Validator;
 import org.apache.xml.security.utils.XMLUtils;
+import org.springframework.context.annotation.Configuration;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -19,7 +21,11 @@ import java.util.Map;
 
 import static org.apache.wss4j.common.util.UsernameTokenUtil.doPasswordDigest;
 
+@Configuration
+@RequiredArgsConstructor
 public class AppUsernameTokenValidator implements Validator {
+
+    final AppProperties appProperties;
 
     @Override
     public Credential validate(Credential credential, RequestData requestData) throws WSSecurityException {
@@ -70,30 +76,21 @@ public class AppUsernameTokenValidator implements Validator {
 
     public class SamplePasswordCallback implements CallbackHandler {
 
-        private static Map<String, String> userPasswords = new HashMap<String, String>();
-        private Map<String, String> keyPasswords = new HashMap<String, String>();
+        private static final Map<String, String> userPasswords = new HashMap<String, String>();
+        private final Map<String, String> keyPasswords = new HashMap<String, String>();
 
         public SamplePasswordCallback() {
             // some example user passwords
-            userPasswords.put("studente-giovanni", "u9u6GT&j!10^");
+            userPasswords.put(appProperties.getClientAlias(), appProperties.getClientPwd());
         }
 
         public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-            for (int i = 0; i < callbacks.length; i++) {
-                WSPasswordCallback pwcb = (WSPasswordCallback) callbacks[i];
-                String id = pwcb.getIdentifier();
-                String pass = null;
-                switch (pwcb.getUsage()) {
-                    case WSPasswordCallback.USERNAME_TOKEN:
-                        pass = userPasswords.get(id);
-                        pwcb.setPassword(pass);
-                        break;
-                    case WSPasswordCallback.SIGNATURE:
-                    case WSPasswordCallback.DECRYPT:
-                        pass = keyPasswords.get(id);
-                        pwcb.setPassword(pass);
-                        break;
-                }
+            for (Callback callback : callbacks) {
+                WSPasswordCallback pcb = (WSPasswordCallback) callback;
+                String id = pcb.getIdentifier();
+                String pass = userPasswords.get(id);
+                pcb.setPassword(pass);
+
             }
         }
     }

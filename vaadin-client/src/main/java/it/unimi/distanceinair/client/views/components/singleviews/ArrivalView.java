@@ -5,6 +5,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -84,19 +85,26 @@ public class ArrivalView extends VerticalLayout {
             dialog.addConfirmListener(event -> {
                 try {
                     ViewsUtils.forceRefreshToken();
-                    serverApis.removeFlightFromPref(ViewsUtils.getToken(), arrivalAirport.getId());
-                    HorizontalLayout parent = (HorizontalLayout) this.getParent().get();
-                    parent.remove(this);
-                    Notification notification = new Notification();
-                    notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-                    notification.setText("Saved flight removed successfully");
-                    notification.setDuration(5000);
-                    notification.open();
-                    if (parent.getComponentCount() == 0) {
-                        parent.removeAll();
-                        NothingFound nf = new NothingFound(true);
-                        parent.add(nf);
-                        parent.setAlignItems(Alignment.CENTER);
+                    if (serverApis.removeFlightFromPref(ViewsUtils.getToken(), arrivalAirport.getId())) {
+                        HorizontalLayout parent = (HorizontalLayout) this.getParent().get();
+                        parent.remove(this);
+                        Notification notification = new Notification();
+                        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                        notification.setText("Saved flight removed successfully");
+                        notification.setDuration(5000);
+                        notification.open();
+                        if (parent.getComponentCount() == 0) {
+                            parent.removeAll();
+                            NothingFound nf = new NothingFound(true);
+                            parent.add(nf);
+                            parent.setAlignItems(Alignment.CENTER);
+                        }
+                    } else {
+                        Notification notification = new Notification();
+                        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                        notification.setText("Error while removing the flight from saved");
+                        notification.setDuration(5000);
+                        notification.open();
                     }
                 } catch (Exception ex) {
                     Notification notification = new Notification();
@@ -118,7 +126,7 @@ public class ArrivalView extends VerticalLayout {
             });
         }
 
-        typeLabel.getStyle().set("bottom", "15%");
+        typeLabel.getStyle().set("bottom", "80%");
         close.getStyle().set("bottom", "15%");
 
         typeLabel.getStyle().set("font-weight", "bold");
@@ -140,12 +148,18 @@ public class ArrivalView extends VerticalLayout {
         positionIcon.addClickListener(e -> {
             UI.getCurrent().getPage().executeJs("window.open(\"https://maps.google.com/?q=" + airport.getLatitude() + "," + airport.getLongitude() + "\");");
         });
+        if (ViewsUtils.hasDepartedOrArrived(arrival.getScheduledTime())) {
+            H3 arrivedLabel = new H3();
+            arrivedLabel.setText("Arrived");
+            components.add(arrivedLabel);
+        }
         HorizontallyAlignedView scheduledTime = new HorizontallyAlignedView("Scheduled runaway time", ViewsUtils.formatDate(arrival.getScheduledTime()));
         components.add(scheduledTime);
         if (arrival.getDelay() != null && !arrival.getDelay().isBlank() && !arrival.getDelay().equals("0")) {
             HorizontallyAlignedView delayView = new HorizontallyAlignedView("Flight delay time", arrival.getDelay());
             components.add(delayView);
         }
+
         if (arrival.getActualTime() != null && !arrival.getActualTime().isBlank()) {
             HorizontallyAlignedView actualTimeView = new HorizontallyAlignedView("Actual runaway time", ViewsUtils.formatDate(arrival.getActualTime()));
             components.add(actualTimeView);

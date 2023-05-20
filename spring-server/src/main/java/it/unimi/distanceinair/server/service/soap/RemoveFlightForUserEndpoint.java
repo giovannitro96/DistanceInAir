@@ -6,7 +6,6 @@ import it.unimi.distanceinair.server.util.TokenUtil;
 import it.unimi.distanceinair.server.xml.domain.RemoveFlightForUserRequest;
 import it.unimi.distanceinair.server.xml.domain.RemoveFlightForUserResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -26,11 +25,15 @@ import java.util.UUID;
 public class RemoveFlightForUserEndpoint {
     private static final String NAMESPACE_URI = "http://www.unimi.it/distanceinair/";
 
-    @Autowired
-    FlightsService flightsService;
+    final FlightsService flightsService;
 
-    @Autowired
-    TokenUtil tokenUtil;
+    final TokenUtil tokenUtil;
+
+    public RemoveFlightForUserEndpoint(FlightsService flightsService,
+                                       TokenUtil tokenUtil) {
+        this.flightsService = flightsService;
+        this.tokenUtil = tokenUtil;
+    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "RemoveFlightForUserRequest")
     @SoapAction(NAMESPACE_URI + "removeFlightForUser")

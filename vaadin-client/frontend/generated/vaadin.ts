@@ -2,5 +2,8 @@ import './vaadin-featureflags.ts';
 
 import './index';
 
-import { applyTheme } from './theme.js';
+import 'Frontend/generated/jar-resources/vaadin-dev-tools.js';
+
+import {applyTheme} from './theme.js';
+
 applyTheme(document);

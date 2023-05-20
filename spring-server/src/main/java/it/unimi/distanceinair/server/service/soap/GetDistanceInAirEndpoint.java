@@ -4,7 +4,6 @@ import it.unimi.distanceinair.server.service.endpointservices.GetDistanceFromApi
 import it.unimi.distanceinair.server.xml.domain.GetDistanceByFlightCodeRequest;
 import it.unimi.distanceinair.server.xml.domain.GetDistanceByFlightCodeResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -24,8 +23,11 @@ public class GetDistanceInAirEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.unimi.it/distanceinair/";
 
-    @Autowired
-    GetDistanceFromApi getDistanceFromApi;
+    final GetDistanceFromApi getDistanceFromApi;
+
+    public GetDistanceInAirEndpoint(GetDistanceFromApi getDistanceFromApi) {
+        this.getDistanceFromApi = getDistanceFromApi;
+    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetDistanceByFlightCodeRequest")
     @SoapAction(NAMESPACE_URI + "getDistance")

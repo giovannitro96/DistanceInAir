@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import it.unimi.distanceinair.server.config.AppProperties;
 import it.unimi.distanceinair.server.xml.domain.GetDistanceByFlightCodeRequest;
 import it.unimi.distanceinair.server.xml.domain.GetDistanceByFlightCodeResponse;
+import it.unimi.distanceinair.server.xml.domain.GetPossibleFlightsResponse;
 import it.unimi.distanceinair.server.xml.domain.exception.FlightNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,11 +23,15 @@ public class GetDistanceFromApi {
 
     final String BASE_URL = "https://app.goflightlabs.com/advanced-flights-schedules";
     final String AIRPORT_BASE_URL = "https://airport-info.p.rapidapi.com/airport";
-    @Autowired
-    AppProperties appProperties;
+    final AppProperties appProperties;
 
-    @Autowired
-    GetAirportService getAirportService;
+    final GetAirportService getAirportService;
+
+    public GetDistanceFromApi(AppProperties appProperties,
+                              GetAirportService getAirportService) {
+        this.appProperties = appProperties;
+        this.getAirportService = getAirportService;
+    }
 
     public GetDistanceByFlightCodeResponse getFromApi(GetDistanceByFlightCodeRequest getDistanceByFlightCode) throws JsonProcessingException, FlightNotFoundException {
         log.info("Calling url for retrieving flight with code: {}, of type :{}", getDistanceByFlightCode.getFlightCode(), getDistanceByFlightCode.getType());
@@ -49,6 +53,32 @@ public class GetDistanceFromApi {
         } catch (
                 MismatchedInputException e) {
             throw new FlightNotFoundException("Flight code \"" + getDistanceByFlightCode.getFlightCode() + "\" not found or not correct.");
+        }
+    }
+
+    public GetPossibleFlightsResponse getPossibleFlightsResponse() {
+        log.info("Calling url for retrieving possible flights");
+        RestTemplate restTemplate = new RestTemplate();
+        URI targetUrl = UriComponentsBuilder.fromUriString(BASE_URL)
+                .queryParam("access_key", appProperties.getAccessToken())
+                .queryParam("limit", "10")
+                .build()
+                .encode()
+                .toUri();
+
+        ResponseEntity<String> result = restTemplate.getForEntity(targetUrl, String.class);
+        try {
+            GetDistanceByFlightCodeResponse response = new ObjectMapper().readValue(result.getBody(), GetDistanceByFlightCodeResponse.class);
+
+            GetPossibleFlightsResponse response1 = new GetPossibleFlightsResponse();
+            response.getData().subList(10, response.getData().size()).clear();
+            response1.setFlights(response.getData());
+            response1.getFlights().forEach(it -> {
+                it.setAirport(it.getType().equals("arrival") ? getAirportService.getAirportByIataCode(it.getArrival().getIataCode()) : getAirportService.getAirportByIataCode(it.getDeparture().getIataCode()));
+            });
+            return response1;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 

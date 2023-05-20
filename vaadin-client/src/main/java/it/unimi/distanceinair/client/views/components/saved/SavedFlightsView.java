@@ -20,7 +20,7 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
 
-@PageTitle("Saved flights")
+@PageTitle("DistanceInAir | Saved flights")
 @Route(value = "saved", layout = MainLayout.class)
 @RolesAllowed("USER")
 @SpringComponent
