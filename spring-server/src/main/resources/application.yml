@@ -22,7 +22,7 @@ logging:
       springframework:
         ws: DEBUG
 application:
-  access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMjk3YWFkNTQxZWQ0NWY2MzY0NGQzNjJlYjFjYmE4NTU2MDU2NWFhNDFhYjNhOWU4N2ExM2ZjNDE4OWZmYTNlMGEyMWIyNTMwZDM0NDczZjgiLCJpYXQiOjE2ODMxNDQ1NzQsIm5iZiI6MTY4MzE0NDU3NCwiZXhwIjoxNzE0NzY2OTc0LCJzdWIiOiIxODA0NCIsInNjb3BlcyI6W119.Lpnx5ULVyRFGTUZbEFh4edDO8UIv86Yz2mSMDl0lTEpFaIPfwYVBCZNP3i86zmBI-4su7pMvrnbCAmz8YqwZ-A
+  access_token: REDACTED
   client_pwd: u9u6GT&j!10^
   server_pwd: ART*18HKUhC1
   server_keystore: classpath:server.jks
